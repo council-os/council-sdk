@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "council-sdk"
+version = "1.0.0"
+description = "Official Python SDK for Council AI Governance Platform"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "Council Team" }]
+keywords = ["council", "ai", "governance", "jury", "sdk"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "httpx>=0.25.0,<1.0.0",
+    "websockets>=12.0,<14.0",
+    "pydantic>=2.0,<3.0",
+]
+
+[project.optional-dependencies]
+langchain = ["langchain>=0.1.0"]
+llamaindex = ["llama-index>=0.10.0"]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-httpx>=0.30",
+    "ruff>=0.1.0",
+    "mypy>=1.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/council-os/council-sdk"
+Documentation = "https://docs.meetcouncil.com/sdk/python"
+Repository = "https://github.com/council-os/council-sdk"
+
+[tool.hatch.build.targets.wheel]
+packages = ["council"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

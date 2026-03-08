@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.egg-info/
+*.egg
+venv/
+.venv/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Test & coverage
+coverage/
+.nyc_output/
+*.local
+htmlcov/
+.pytest_cache/
+
+# Python
+*.pyc
+__pycache__/
+dist-packages/
+
+# Misc
+*.tgz
+.worktrees/

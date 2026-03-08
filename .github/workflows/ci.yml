@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  typescript-sdk:
+    name: "@council/sdk"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: typescript/package-lock.json
+      - run: cd typescript && npm ci
+      - run: cd typescript && npm run typecheck
+      - run: cd typescript && npm run build
+      - run: cd typescript && npm test
+
+  typescript-protocol:
+    name: "@council/protocol"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: packages/council-protocol/package-lock.json
+      - run: cd packages/council-protocol && npm ci
+      - run: cd packages/council-protocol && npm run typecheck
+      - run: cd packages/council-protocol && npm run build
+      - run: cd packages/council-protocol && npm test
+
+  typescript-orchestrator:
+    name: "@council/orchestrator"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: packages/council-orchestrator/package-lock.json
+      - run: cd packages/council-protocol && npm ci && npm run build
+      - run: cd packages/council-orchestrator && npm ci
+      - run: cd packages/council-orchestrator && npm run typecheck
+      - run: cd packages/council-orchestrator && npm run build
+      - run: cd packages/council-orchestrator && npm test
+
+  typescript-connector-sdk:
+    name: "@council/connector-sdk"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: connector-typescript/package-lock.json
+      - run: cd connector-typescript && npm ci
+      - run: cd connector-typescript && npm run typecheck
+      - run: cd connector-typescript && npm run build
+      - run: cd connector-typescript && npm test
+
+  python-sdk:
+    name: "council-sdk (Python)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: cd python/council-sdk && pip install -e ".[dev]"
+      - run: cd python/council-sdk && pytest
+
+  python-connector-sdk:
+    name: "council-connector-sdk (Python)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: cd connector-python && pip install -e ".[dev]"
+      - run: cd connector-python && pytest

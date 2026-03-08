@@ -1,0 +1,87 @@
+{
+  "name": "@council/protocol",
+  "version": "0.1.0",
+  "description": "Category Theory-based protocol for multi-agent AI orchestration and governance",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./governance": {
+      "import": "./dist/governance/index.mjs",
+      "require": "./dist/governance/index.js",
+      "types": "./dist/governance/index.d.ts"
+    },
+    "./adapters": {
+      "import": "./dist/adapters/index.mjs",
+      "require": "./dist/adapters/index.js",
+      "types": "./dist/adapters/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts src/governance/index.ts src/adapters/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts src/governance/index.ts src/adapters/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "multi-agent",
+    "orchestration",
+    "category-theory",
+    "state-machine",
+    "governance",
+    "consensus",
+    "langchain",
+    "crewai",
+    "council"
+  ],
+  "author": "Council Team",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/council-os/council-sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/council-os/council-sdk/issues"
+  },
+  "homepage": "https://github.com/council-os/council-sdk#readme",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "eslint": "^8.55.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "peerDependencies": {
+    "langchain": ">=0.1.0",
+    "@langchain/core": ">=0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "langchain": {
+      "optional": true
+    },
+    "@langchain/core": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
